@@ -38,6 +38,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+##This is just a test
+
 echo "Extracting..."
 tar -C "$HOME" -xzf /tmp/go.tar.gz
 mv "$HOME/go" "$HOME/.go"
