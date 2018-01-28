@@ -12,8 +12,7 @@ print_help() {
     echo "  --64\t\tInstall 64-bit version"
 }
 
-echo -e "Setting up ContRoll..."
-echo $1
+echo "Setting up ContRoll..."
 if [ "$1" = "--32" ]; then
     DFILE="go$VERSION.linux-386.tar.gz"
 elif [ "$1" = "--64" ]; then
@@ -32,8 +31,8 @@ if [ -d "$HOME/.go" ] || [ -d "$HOME/go" ]; then
 fi
 
 echo "Downloading $DFILE ..."
-wget https://golang.org/doc/install?download=$DFILE -O /tmp/go.tar.gz
-wait
+##Fixed the download link
+wget https://dl.google.com/go/$DFILE -O /tmp/go.tar.gz
 
 if [ $? -ne 0 ]; then
     echo "Downloading $DFILE failed. Exiting..."
@@ -43,17 +42,17 @@ fi
 echo "Extracting..."
 tar -C "$HOME" -xzf /tmp/go.tar.gz
 mv "$HOME/go" "$HOME/.go"
-touch "$HOME/.${shell_profile}"
+
 {
     echo '# GoLang'
     echo 'export GOROOT=$HOME/.go'
     echo 'export PATH=$PATH:$GOROOT/bin'
     echo 'export GOPATH=$HOME/go'
     echo 'export PATH=$PATH:$GOPATH/bin'
-} >> "$HOME/.${shell_profile}"
+} >> "$HOME/.bashrc"
 
 mkdir -p $HOME/go/{src,pkg,bin}
 echo -e "\nGo $VERSION installed\n"
 rm -f /tmp/go.tar.gz
-bash /$GOROOT/bin/go build main.go -o ContRoll
+$HOME/.go/bin/go build main.go -o ContRoll
 echo -e "\nContRoll successfully installed!"
