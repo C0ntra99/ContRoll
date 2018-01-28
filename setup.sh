@@ -32,7 +32,7 @@ if [ -d "$HOME/.go" ] || [ -d "$HOME/go" ]; then
 fi
 
 echo "Downloading $DFILE ..."
-wget https://golang.org/doc/install?download=$DFILE -O /tmp/go.tar.gz
+echo "wget https://golang.org/doc/install?download="+$DFILE+"-O /tmp/go.tar.gz"
 wait
 
 if [ $? -ne 0 ]; then
