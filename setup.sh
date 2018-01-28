@@ -58,6 +58,11 @@ mv "$HOME/go" "$HOME/.go"
 mkdir -p $HOME/go/{src,pkg,bin}
 echo -e "\n[+]Go $VERSION installed"
 rm -f /tmp/go.tar.gz
-$HOME/.go/bin/go build -o /usr/ContRoll main.go
+$HOME/.go/bin/go build -o ContRoll main.go
+if [ $? -ne 0 ]; then
+    echo "[!]Go binary failed to execute! Make sure you're installing the right version. (32 vs 64-bit)"
+    exit 1
+fi
+
 echo -e "\n[+]ContRoll successfully installed!"
 echo -e "\n[+]Please run ./ContRoll"
