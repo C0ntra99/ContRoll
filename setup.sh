@@ -26,22 +26,26 @@ else
 fi
 
 if [ -d "$HOME/.go" ] || [ -d "$HOME/go" ]; then
-    echo "It appears Go is already installed on your system. Exiting..."
+    echo "[!]It appears Go is already installed on your system. Exiting..."
     exit 1
 fi
 
-echo "Downloading $DFILE ..."
-wget https://dl.google.com/go/$DFILE -O /tmp/go.tar.gz
+echo "[-]Downloading $DFILE ..."
+wget https://dl.google.com/go/$DFILE -O /tmp/go.tar.gz || echo "[!]Connection to website failed. Exiting..."
 
 if [ $? -ne 0 ]; then
-    echo "Downloading $DFILE failed. Exiting..."
+    echo "[!]Downloading $DFILE failed. Exiting..."
     exit 1
 fi
 
-##This is just a test
-
-echo "Extracting..."
+echo "\n[+]Download successfull"
+echo "\n[-]Extracting..."
 tar -C "$HOME" -xzf /tmp/go.tar.gz
+if [ $? -ne 0 ]; then
+    echo "[!]Extraction failed. Exiting..."
+    exit 1
+fi
+
 mv "$HOME/go" "$HOME/.go"
 {
     echo '# GoLang'
@@ -52,7 +56,9 @@ mv "$HOME/go" "$HOME/.go"
 } >> "$HOME/.bashrc"
 
 mkdir -p $HOME/go/{src,pkg,bin}
-echo -e "\nGo $VERSION installed\n"
+echo "\n[+]Go $VERSION installed"
 rm -f /tmp/go.tar.gz
-$HOME/.go/bin/go build main.go -o ContRoll
-echo -e "\nContRoll successfully installed!"
+$HOME/.go/bin/go build -o ContRoll main.go
+##Add ContRoll to /usr/bin??
+echo "\n[+]ContRoll successfully installed!"
+echo "\n[+]Please run ./ContRoll"
