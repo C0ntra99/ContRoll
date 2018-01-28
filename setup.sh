@@ -1,15 +1,15 @@
-#/bin/bash
+#!/bin/bash
 set -e
 
 VERSION="1.9.3"
 
 print_help() {
-    echo "Setup script for ContRoll. Installs most recent version of Go, sets environment variables, and compiles everything"
-    echo "This script should be run as root\n\n"
-    echo "Usage: ./goinstall.sh OPTIONS"
-    echo "\nOPTIONS:"
-    echo "  --32\t\tInstall 32-bit version"
-    echo "  --64\t\tInstall 64-bit version"
+    echo -e "Setup script for ContRoll. Installs most recent version of Go, sets environment variables, and compiles everything"
+    echo -e "This script should be run as root\n\n"
+    echo -e "Usage: ./goinstall.sh OPTIONS"
+    echo -e "\nOPTIONS:"
+    echo -e "  --32\t\tInstall 32-bit version"
+    echo -e "  --64\t\tInstall 64-bit version"
 }
 
 echo "Setting up ContRoll..."
@@ -38,8 +38,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-echo "\n[+]Download successfull"
-echo "\n[-]Extracting..."
+echo -e "\n[+]Download successfull"
+echo -e "\n[-]Extracting..."
 tar -C "$HOME" -xzf /tmp/go.tar.gz
 if [ $? -ne 0 ]; then
     echo "[!]Extraction failed. Exiting..."
@@ -56,9 +56,9 @@ mv "$HOME/go" "$HOME/.go"
 } >> "$HOME/.bashrc"
 
 mkdir -p $HOME/go/{src,pkg,bin}
-echo "\n[+]Go $VERSION installed"
+echo -e "\n[+]Go $VERSION installed"
 rm -f /tmp/go.tar.gz
 $HOME/.go/bin/go build -o ContRoll main.go
 ##Add ContRoll to /usr/bin??
-echo "\n[+]ContRoll successfully installed!"
-echo "\n[+]Please run ./ContRoll"
+echo -e "\n[+]ContRoll successfully installed!"
+echo -e "\n[+]Please run ./ContRoll"
