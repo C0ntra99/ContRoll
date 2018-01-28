@@ -1,7 +1,7 @@
 #/bin/bash
 set -e
 
-VERSION = "1.9.3"
+VERSION="1.9.3"
 
 print_help() {
     echo "Setup script for ContRoll. Installs most recent version of Go, sets environment variables, and compiles everything"
@@ -13,12 +13,12 @@ print_help() {
 }
 
 echo -e "Setting up ContRoll..."
-
-if [ "$1" == "--32" ]; then
+echo $1
+if [ "$1" = "--32" ]; then
     DFILE="go$VERSION.linux-386.tar.gz"
-elif [ "$1" == "--64" ]; then
+elif [ "$1" = "--64" ]; then
     DFILE="go$VERSION.linux-amd64.tar.gz"
-elif [ "$1" == "--help" ]; then
+elif [ "$1" = "--help" ]; then
     print_help
     exit 0
 else
@@ -32,7 +32,8 @@ if [ -d "$HOME/.go" ] || [ -d "$HOME/go" ]; then
 fi
 
 echo "Downloading $DFILE ..."
-wget https://storage.googleapis.com/golang/$DFILE -O /tmp/go.tar.gz
+wget https://golang.org/doc/install?download=$DFILE -O /tmp/go.tar.gz
+wait
 
 if [ $? -ne 0 ]; then
     echo "Downloading $DFILE failed. Exiting..."
