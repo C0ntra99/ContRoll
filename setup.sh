@@ -58,7 +58,6 @@ mv "$HOME/go" "$HOME/.go"
 mkdir -p $HOME/go/{src,pkg,bin}
 echo -e "\n[+]Go $VERSION installed"
 rm -f /tmp/go.tar.gz
-$HOME/.go/bin/go build -o ContRoll main.go
-##Add ContRoll to /usr/bin??
+$HOME/.go/bin/go build -o /usr/ContRoll main.go
 echo -e "\n[+]ContRoll successfully installed!"
 echo -e "\n[+]Please run ./ContRoll"
