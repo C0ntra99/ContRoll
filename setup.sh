@@ -31,7 +31,6 @@ if [ -d "$HOME/.go" ] || [ -d "$HOME/go" ]; then
 fi
 
 echo "Downloading $DFILE ..."
-##Fixed the download link
 wget https://dl.google.com/go/$DFILE -O /tmp/go.tar.gz
 
 if [ $? -ne 0 ]; then
@@ -42,7 +41,6 @@ fi
 echo "Extracting..."
 tar -C "$HOME" -xzf /tmp/go.tar.gz
 mv "$HOME/go" "$HOME/.go"
-
 {
     echo '# GoLang'
     echo 'export GOROOT=$HOME/.go'
