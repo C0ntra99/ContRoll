@@ -1,7 +1,7 @@
 #/bin/bash
 set -e
 
-VERSION = "1.9.3"
+VERSION="1.9.3"
 
 print_help() {
     echo "Setup script for ContRoll. Installs most recent version of Go, sets environment variables, and compiles everything"
