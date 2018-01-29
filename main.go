@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"./src/tcpServer"
 )
 
 func main() {
@@ -27,7 +28,7 @@ func main() {
 
 func contRollServer(port int) {
 	fmt.Print("ContRoll started in server mode...\n\n")
-	fmt.Print("Waiting for connections on port ", port, "...")
+	tcpServer.StartServer()
 }
 
 func contRollClient(host string, port int) {
