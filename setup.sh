@@ -6,7 +6,7 @@ VERSION="1.9.3"
 print_help() {
     echo -e "Setup script for ContRoll. Installs most recent version of Go, sets environment variables, and compiles everything"
     echo -e "This script should be run as root\n\n"
-    echo -e "Usage: ./goinstall.sh OPTIONS"
+    echo -e "Usage: ./setup.sh OPTIONS"
     echo -e "\nOPTIONS:"
     echo -e "  --32\t\tInstall 32-bit version"
     echo -e "  --64\t\tInstall 64-bit version"
