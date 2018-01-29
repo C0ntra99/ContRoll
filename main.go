@@ -33,7 +33,7 @@ func main() {
 
 func contRollServer(port int) {
 	fmt.Print("ContRoll started in server mode...\n\n")
-	tcpServer.StartServer()
+	tcpServer.StartServer(port)
 }
 
 func contRollClient(host string, port int, udp bool) {

