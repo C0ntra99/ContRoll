@@ -13,11 +13,11 @@ func main() {
 	udp := flag.Bool("UDP", false, "Is this a UDP connection?")
 	flag.Parse()
 
-	switch udp {
+	switch *udp {
 	case false: // TCP MODE
-		switch listen {
+		switch *listen {
 		case false:
-			tcpclient.connect()
+			tcpclient.connect(host, port)
 		case true:
 			tcpserver.start()
 		default:
@@ -25,7 +25,7 @@ func main() {
 		}
 
 	case true: // UDP MODE
-		switch listen {
+		switch *listen {
 		case false:
 			udpclient.connect()
 		case true:
