@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func connect(host string, port string, udp bool) {
+func connect(host string, port string) {
 	fmt.Print("Connecting to ", host, " on port ", port, "...")
 	address := host + "" + port
 
