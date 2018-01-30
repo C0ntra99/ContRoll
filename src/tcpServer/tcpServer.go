@@ -1,5 +1,6 @@
 package tcpServer
 
+//Need to rewrite to be an actual server....
 import (
   "fmt"
   "net"
@@ -11,20 +12,20 @@ import (
 )
 
 const (
+  //Change to the localhost ip address
   host = "192.168.1.219"
 )
 
-func StartServer(port int) {
+func Start(port string) {
 
-  p := strconv.Itoa(port)
-  listener, err := net.Listen("tcp",host+":"+p)
+  listener, err := net.Listen("tcp",host+":"+port)
   if err != nil {
     fmt.Println("Error listening:", err.Error())
     os.Exit(1)
   }
   defer listener.Close()
 
-  fmt.Println("Listening on " + host + ":" + p)
+  fmt.Println("Listening on " + host + ":" + port)
   for {
     conn, err := listener.Accept()
     if err != nil {
