@@ -1,11 +1,10 @@
 package tcpServer
 
-//Need to rewrite to be an actual server....
+
 import (
   "fmt"
   "net"
   //"strconv"
-  //"bytes"
   "bufio"
 )
 
@@ -32,10 +31,9 @@ func Start(port string) {
   }
 
 func handleConnection(conn net.Conn) {
-  fmt.Printf("[+]Connection from %s", conn.RemoteAddr())
+  fmt.Printf("[+]Connection from %s\n", conn.RemoteAddr())
   conn.Write([]byte("~~~TCP server~~~\n"))
 
-  //buffer := make([]byte, 1024)
   reader := bufio.NewReader(conn)
 
   for {
@@ -46,15 +44,5 @@ func handleConnection(conn net.Conn) {
     }
     fmt.Printf("%s", bytes)
   }
-
-  //fmt.Print("[!]Connection from %s has been closed\n", conn.RemoteAddr())
-  //conn.Read(buffer)
-
-
-
-
-
-  //msg := bytes.Index(buffer, []byte{0})
-  //fmt.Println("Message: ", string(buffer[:msg]))
 
 }
