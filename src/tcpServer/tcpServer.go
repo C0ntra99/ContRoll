@@ -4,11 +4,9 @@ package tcpServer
 import (
   "fmt"
   "net"
-  "os"
-  "strconv"
-  "bytes"
-  "os/exec"
-  "strings"
+  //"strconv"
+  //"bytes"
+  "bufio"
 )
 
 const (
@@ -20,56 +18,43 @@ func Start(port string) {
 
   listener, err := net.Listen("tcp",host+":"+port)
   if err != nil {
-    fmt.Println("Error listening:", err.Error())
-    os.Exit(1)
+    fmt.Println("[!]Error couldnt listen on port " + port)
   }
   defer listener.Close()
-
-  fmt.Println("Listening on " + host + ":" + port)
+  fmt.Printf("[+]Tcp server started at %s:%s\n", host, port)
   for {
     conn, err := listener.Accept()
     if err != nil {
-      fmt.Println("Error accecpting: ", err.Error())
+      fmt.Println("[!]Error couldn't accept connection!")
     }
-
-    fmt.Printf("Connection from %s -> %s\n", conn.RemoteAddr(), conn.LocalAddr())
     go handleConnection(conn)
+    }
   }
-}
 
 func handleConnection(conn net.Conn) {
-  buf := make([]byte, 1024)
+  fmt.Printf("[+]Connection from %s", conn.RemoteAddr())
+  conn.Write([]byte("~~~TCP server~~~\n"))
 
-  reqLen, err := conn.Read(buf)
-  if err != nil {
-    fmt.Println("Error reading: ", err.Error())
+  //buffer := make([]byte, 1024)
+  reader := bufio.NewReader(conn)
+
+  for {
+    bytes, err := reader.ReadString('\n')
+    if err != nil {
+      fmt.Printf("[!]Connection from %s has been closed\n", conn.RemoteAddr())
+      return
+    }
+    fmt.Printf("%s", bytes)
   }
 
-  fmt.Println("Message len: ", strconv.Itoa(reqLen))
-  msg := bytes.Index(buf, []byte{0})
-  fmt.Println("Message: ", string(buf[:msg]))
-  command := string(buf[:msg])
-  ///If the command has a spcae in it then it will not run
-  //Need to split the string somehow then send it to command
-  //also need to do error checking
-  cmd := exec.Command(command)
-  output, _ := cmd.CombinedOutput()
+  //fmt.Print("[!]Connection from %s has been closed\n", conn.RemoteAddr())
+  //conn.Read(buffer)
 
-  commandOutput(output,cmd)
-  if len(output) > 0 {
-    conn.Write([]byte(output))
-  } else {
-    conn.Write([]byte("Command Failed to execute"))
-  }
-  conn.Close()
-}
 
-func commandOutput(outs []byte, cmd *exec.Cmd) {
-  fmt.Printf("Executing: %s\n", strings.Join(cmd.Args, " "))
-  if len(outs) > 0 {
-    //fmt.Printf("Output: %s\n", string(outs))
-    fmt.Printf("%s Has been executed.", strings.Join(cmd.Args, " "))
-  } else {
-    fmt.Print("Command Failed to execute...\n")
-  }
+
+
+
+  //msg := bytes.Index(buffer, []byte{0})
+  //fmt.Println("Message: ", string(buffer[:msg]))
+
 }
