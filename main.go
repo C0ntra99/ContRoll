@@ -31,9 +31,9 @@ func main() {
 	case true: // UDP MODE
 		switch *listen {
 		case false:
-			udpClient.Connect()
+			udpClient.Connect(*host, *port)
 		case true:
-			udpServer.Start()
+			udpServer.Start(*port)
 		default:
 			flag.Usage()
 		}

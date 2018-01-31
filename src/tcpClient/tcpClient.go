@@ -8,14 +8,14 @@ import (
 )
 
 func Connect(host string, port string) {
-	fmt.Print("Connecting to ", host, " on port ", port, "...")
+	fmt.Print("[-]Connecting to ", host, " on port ", port, "...")
 	address := host + ":" + port
 
 	connection, err := net.Dial("tcp", address)
 	if err != nil {
 		fmt.Println("[!]Error establishing the connection!")
 	} else {
-		fmt.Print("\nConnection established!\n")
+		fmt.Print("\n[+]Connection established!\n")
 	}
 
 	reader := bufio.NewReader(connection)
