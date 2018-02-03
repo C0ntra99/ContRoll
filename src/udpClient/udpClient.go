@@ -26,18 +26,6 @@ func Connect(host string, port string) {
 
 	defer conn.Close()
 
-//This just sends the server numbers counting up
-//	i := 0
-	//for {
-		//msg := strconv.Itoa(i)
-		//i++
-		//bud := []byte(msg)
-		//_,err := conn.Write(bud)
-		//if err != nil {
-			//fmt.Println(msg, err)
-		//}
-		//time.Sleep(time.Second * 1)
-	//}
 
 	reader := bufio.NewScanner(os.Stdin)
 	for reader.Scan() {
