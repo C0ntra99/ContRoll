@@ -21,6 +21,7 @@ func main() {
 		fmt.Printf("--listen\t\t Starts listening\n")
 		fmt.Printf("--port={}\t\t Sets the port to Connect/Listen\n")
 		fmt.Printf("--host={}\t\t Sets the host to connect to\n")
+		}
 	// reads arguments
 	listen := flag.Bool("listen", false, "Listen/Server mode")
 	port := flag.String("port", "0", "The TCP port to connect on")
