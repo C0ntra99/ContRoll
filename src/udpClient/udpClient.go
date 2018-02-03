@@ -4,7 +4,9 @@ import (
 	"fmt"
 	"net"
 	//"time"
-	"strconv"
+	//"strconv"
+	"os"
+	"bufio"
 )
 
 func Connect(host string, port string) {
@@ -25,15 +27,29 @@ func Connect(host string, port string) {
 	defer conn.Close()
 
 //This just sends the server numbers counting up
-	i := 0
-	for {
-		msg := strconv.Itoa(i)
-		i++
-		bud := []byte(msg)
-		_,err := conn.Write(bud)
-		if err != nil {
-			fmt.Println(msg, err)
-		}
+//	i := 0
+	//for {
+		//msg := strconv.Itoa(i)
+		//i++
+		//bud := []byte(msg)
+		//_,err := conn.Write(bud)
+		//if err != nil {
+			//fmt.Println(msg, err)
+		//}
 		//time.Sleep(time.Second * 1)
+	//}
+
+	reader := bufio.NewScanner(os.Stdin)
+	for reader.Scan() {
+		line := reader.Text()
+		if line == "exit" {
+			os.Exit(0)
+		}
+
+		buf := []byte(line+"\n")
+		_,err := conn.Write(buf)
+		if err != nil {
+			fmt.Println("[!]Error sending...")
+		}
 	}
 }
