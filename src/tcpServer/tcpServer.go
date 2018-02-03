@@ -31,7 +31,8 @@ func Start(port string) {
   }
 
 func handleConnection(conn net.Conn) {
-  fmt.Printf("[+]Connection from %s\n", conn.RemoteAddr())
+  remoteConn := conn.RemoteAddr()
+  fmt.Printf("[+]Connection from %s\n", remoteConn)
   conn.Write([]byte("~~~TCP server~~~\n"))
 
   reader := bufio.NewReader(conn)
@@ -39,10 +40,10 @@ func handleConnection(conn net.Conn) {
   for {
     bytes, err := reader.ReadString('\n')
     if err != nil {
-      fmt.Printf("[!]Connection from %s has been closed\n", conn.RemoteAddr())
+      fmt.Printf("[!]Connection from %s has been closed\n", remoteConn)
       return
     }
-    fmt.Printf("%s", bytes)
+    fmt.Printf("%s ^-- %s\n",bytes,remoteConn)
   }
 
 }

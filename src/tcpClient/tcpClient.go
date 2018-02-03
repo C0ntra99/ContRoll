@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"net"
-	//"os"
+	"os"
 )
 
 func Connect(host string, port string) {
@@ -14,13 +14,15 @@ func Connect(host string, port string) {
 	connection, err := net.Dial("tcp", address)
 	if err != nil {
 		fmt.Println("[!]Error establishing the connection!")
+		os.Exit(0)
 	} else {
 		fmt.Print("\n[+]Connection established!\n")
 	}
 
-	reader := bufio.NewReader(connection)
+	servReader := bufio.NewReader(connection)
+	//Wont move on until input from server...
 	for {
-		input, err := reader.ReadString('\n')
+		input, err := servReader.ReadString('\n')
 		if len(input)>0 {
 			fmt.Println(input)
 		}
@@ -28,9 +30,20 @@ func Connect(host string, port string) {
 			break
 		}
 
-		//fmt.Fprintf(connection, input+"\n")
+		//Send the server cool shit
+		clientReader := bufio.NewScanner(os.Stdin)
+		for clientReader.Scan() {
+			line := clientReader.Text()
+			if line == "exit" {
+				os.Exit(0)
+			}
 
-		//response, _ := bufio.NewReader(connection).ReadString('\n')
-		//fmt.Print(response)
+
+			buf := []byte(line+"\n")
+			_,err := connection.Write(buf)
+			if err != nil {
+				fmt.Println("[!]Error sending...")
+			}
+		}
 	}
 }
