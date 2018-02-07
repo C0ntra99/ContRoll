@@ -7,6 +7,13 @@ import (
 	"os"
 )
 
+//This is comments to show git
+//This is comments to show git
+//This is comments to show git
+//This is comments to show git
+//This is comments to show git
+//This is comments to show git
+
 func Connect(host string, port string) {
 	fmt.Print("[-]Connecting to ", host, " on port ", port, "...")
 	address := host + ":" + port
