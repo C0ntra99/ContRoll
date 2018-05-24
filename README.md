@@ -1,5 +1,5 @@
 # ContRoll
 ------
-#### Trying to combine a couple of different tools into one tool written in Go. 
+#### Simple TCP and UDP server/client written in Go. 
 
-#### Don't look at this code, lest ye eyes fall out of ye head.
+Still need to update things and write an actual readme.
